@@ -1,0 +1,110 @@
+<style>
+
+  @media (min-width: 640px) {
+    table {
+      display: inline-table !important;
+    }
+
+    thead tr:not(:first-child) {
+      display: none;
+    }
+  }
+
+  td:not(:last-child) {
+    border-bottom: 0;
+  }
+
+  th:not(:last-child) {
+    border-bottom: 2px solid rgba(0, 0, 0, .1);
+  }
+</style>
+
+
+<div class="container ">
+
+  <span class="text-center p-4">
+    <div class="display-1" style="font-size:500%;">Purchasers</div>
+    <!-- <div class="display-1" >Purchasers</div> -->
+    <!-- <h1 class="" >Purchasers</h1> -->
+  </span>
+
+  <%= link_to 'New Purchaser', new_user_purchaser_path(current_user), class:"btn btn-success btn-lg btn-block" %>
+
+<br>
+
+
+
+
+<% @purchasers.each do |purchaser| %>
+
+<!-- <div class="p-4 bg-gray-100"> -->
+<div class="p-4  border-t-2 border-r-2 border-b-2 border-l-4 border-gray-200">
+
+  <div class=" container rounded-t-2xl ">
+    <div class="bg-teal-400 flex flex-col flex-no wrap w-full">
+
+      <!-- <div class="bg-teal-400 p-3"> Purchased by: <%= purchaser.name %> </div> -->
+      <!-- <%= link_to "Purchased by #{purchaser.name}", purchaser, class:"bg-teal-400 p-3 btn"%> -->
+
+      <button type="button" name="button" class="bg-teal-400 p-3 btn" >
+        <div>
+          <%= link_to "Purchased by #{purchaser.name}", purchaser, class:"display-4",style:"width:100%; font-size:100%;" %>
+        </div>
+      </button>
+
+    </div>
+  </div>
+
+  <!-- component -->
+  <div class="flex items-center justify-center">
+  	<div class="container -mt-4">
+      <!-- <table class="w-full flex flex-row flex-no-wrap sm:bg-white rounded-lg overflow-hidden sm:shadow-lg my-1"> -->
+      <table class="w-full flex flex-row flex-no-wrap sm:bg-white overflow-hidden sm:shadow-lg my-1">
+  			<tbody class="flex-1 sm:flex-none">
+          <% purchaser.vendors.each do |vendor| %>
+  				<tr class="flex flex-col flex-no wrap sm:table-row mb-2 sm:mb-0 bg-gray-100 ">
+
+            <td class="border-grey-light border hover:bg-gray-100 p-3">Vendor: <%= link_to "#{vendor.name.capitalize}", vendor %></td>
+
+            <td class="border-grey-light border hover:bg-gray-100 p-3"><%= vendor.po_number %></td>
+
+            <td class="border-grey-light border hover:bg-gray-100 p-3"><%= vendor.distributed_by %></td>
+
+            <td class="border-grey-light border hover:bg-gray-100 p-3">
+              <%= "#{vendor.date_recieved.strftime("%m-%d-%y")}" %>
+            </td>
+
+            <td class="border-grey-light border hover:bg-gray-100 p-3">
+              <%= "#{vendor.date_delivered.strftime("%m-%d-%y")}" %>
+            </td>
+
+  					<td class="border-grey-light border hover:bg-gray-100 p-3 text-red-400 hover:text-red-600 hover:font-medium cursor-pointer">
+              <%= link_to 'Delete', vendor, method: :delete, data: { confirm: 'Are you sure? Once deleted you will never be able to recover this data.' } %>
+            </td>
+
+  				</tr>
+
+
+
+          <% end %>
+
+  			</tbody>
+  		</table>
+  	</div>
+  </div>
+
+  <br>
+
+
+  <div class="container text-center" style:"object-fit: contain;">
+    <%= link_to 'Add Vendor', new_purchaser_vendor_path(purchaser), class:"btn btn-outline-success " %>
+  </div>
+
+</div>
+
+<br>
+<br>
+
+
+
+<% end %>

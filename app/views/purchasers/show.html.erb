@@ -1,0 +1,33 @@
+
+<p>
+  <strong>Name:</strong>
+  <%= @purchaser.name %>
+</p>
+
+<p>
+  <strong>Po number:</strong>
+  <%= @purchaser.po_number %>
+</p>
+
+<p>
+  <strong>Date recieved:</strong>
+  <%= @purchaser.date_recieved %>
+</p>
+
+<p>
+  <strong>Date delivered:</strong>
+  <%= @purchaser.date_delivered %>
+</p>
+
+<p>
+  <strong>Distributed by:</strong>
+  <%= @purchaser.distributed_by %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @purchaser.user_id %>
+</p>
+
+<%= link_to 'Edit', edit_purchaser_path(@purchaser) %> |
+<%= link_to 'Back', :back %>

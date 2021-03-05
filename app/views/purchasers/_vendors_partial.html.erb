@@ -1,0 +1,30 @@
+
+<% @vendors.each do |vendor| %>
+
+<tr class="flex flex-col flex-no wrap sm:table-row mb-2 sm:mb-0 bg-gray-100"">
+
+  <td class="border-grey-light border hover:bg-gray-100 p-3"><%= link_to "#{purchaser.name}", purchaser %></td>
+
+  <td class="border-grey-light border hover:bg-gray-100 p-3"><%= purchaser.po_number %></td>
+
+  <td class="border-grey-light border hover:bg-gray-100 p-3"><%= purchaser.distributed_by %></td>
+
+
+  <td class="border-grey-light border hover:bg-gray-100 p-3">
+    <%#= purchaser.date_recieved %>
+    <%= "#{purchaser.date_recieved.strftime("%m-%d-%y")}" %>
+
+  </td>
+
+  <td class="border-grey-light border hover:bg-gray-100 p-3">
+    <%= "#{purchaser.date_delivered.strftime("%m-%d-%y")}" %>
+
+  </td>
+
+  <td class="border-grey-light border hover:bg-gray-100 p-3 text-red-400 hover:text-red-600 hover:font-medium cursor-pointer">
+    <%= link_to 'Delete', purchaser, method: :delete, data: { confirm: 'Are you sure? Once deleted you will never be able to recover this data.' } %>
+  </td>
+
+</tr>
+
+<% end %>

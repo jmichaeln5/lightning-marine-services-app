@@ -1,0 +1,47 @@
+<%= form_with(model: vendor, local: true) do |form| %>
+  <% if vendor.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(vendor.errors.count, "error") %> prohibited this vendor from being saved:</h2>
+
+      <ul>
+        <% vendor.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :name, "Vendor Name"%>
+    <%= form.text_field :name %>
+  </div>
+
+  <div class="field">
+    <%= form.label :po_number, "PO Number" %>
+    <%= form.number_field :po_number %>
+  </div>
+
+  <div class="field">
+    <%= form.label :date_recieved %>
+    <%= form.datetime_select :date_recieved %>
+  </div>
+
+  <div class="field">
+    <%= form.label :date_delivered %>
+    <%= form.datetime_select :date_delivered %>
+  </div>
+
+  <div class="field">
+    <%= form.label :distributed_by %>
+    <%= form.text_field :distributed_by %>
+  </div>
+
+  <div class="field">
+    <%= form.label :purchaser_id %>
+    <%= form.text_field :purchaser_id %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

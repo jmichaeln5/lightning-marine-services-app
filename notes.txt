@@ -1,0 +1,18 @@
+Each thing scanned:
+
+Cateloged under ship name
+
+Barcode scanner pulls up information from Package
+
+Purchaser has_many Vendors
+Vendor belongs_to Purchaser
+
+
+Title Row- Ship Name (Purchaser)
+
+    PO number
+    Date Revieced (Current date when item is logged) When fedex, usps, etc
+    Date Delivered (To vessel)
+    Shipper (UPS, FEDEX, etc.)
+
+    has_many: Vendors(name), ItemsRecieved (Boxes, Crates, Pallets)
