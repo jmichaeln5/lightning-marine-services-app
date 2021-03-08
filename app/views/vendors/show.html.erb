@@ -1,34 +1,112 @@
-<p id="notice"><%= notice %></p>
+<style>
 
-<p>
-  <strong>Name:</strong>
-  <%= @vendor.name %>
-</p>
+  @media (min-width: 640px) {
+    table {
+      display: inline-table !important;
+    }
 
-<p>
-  <strong>Po number:</strong>
-  <%= @vendor.po_number %>
-</p>
+    thead tr:not(:first-child) {
+      display: none;
+    }
+  }
 
-<p>
-  <strong>Date recieved:</strong>
-  <%= @vendor.date_recieved %>
-</p>
+  td:not(:last-child) {
+    border-bottom: 0;
+  }
 
-<p>
-  <strong>Date delivered:</strong>
-  <%= @vendor.date_delivered %>
-</p>
+  th:not(:last-child) {
+    border-bottom: 2px solid rgba(0, 0, 0, .1);
+  }
+</style>
 
-<p>
-  <strong>Distributed by:</strong>
-  <%= @vendor.distributed_by %>
-</p>
+<div class="display-4" style="font-size:100%;">
 
-<p>
-  <strong>Purchaser:</strong>
-  <%= @vendor.purchaser_id %>
-</p>
+  <div class="container">
+    <div class="text-center p-4  border-t-2 border-r-2 border-b-2 border-l-4 border-gray-200">
+      <div class="display-1" style="font-size:300%;">
+         <%= @vendor.name.capitalize %>
 
-<%= link_to 'Edit', edit_vendor_path(@vendor) %> |
-<%= link_to 'Back', :back %>
+         <div class="display-1" style="font-size:50%;">
+           Purchased by: <%= link_to "#{@vendor.purchaser.name}", purchaser_path(@vendor.purchaser)  %>
+         </div>
+      </div>
+    </div>
+
+    <br>
+
+    <!-- Three button col -->
+    <div>
+      <button type="button" name="button" class="btn btn-success">Test</button>
+      <button type="button" name="button" class="btn btn-success">Test</button>
+      <button type="button" name="button" class="btn btn-success">Test</button>
+    </div>
+
+  </div>
+
+
+
+  <div class="container pt-4">
+  <div class="text-center p-4  border-t-2 border-r-2 border-b-2 border-l-4 border-gray-200">
+
+  <!-- component -->
+  <div class="flex items-center justify-center">
+
+  	<div class="container">
+      <table class="w-full flex flex-row flex-no-wrap sm:bg-white overflow-hidden sm:shadow-lg ">
+  			<tbody class="flex-1 sm:flex-none">
+
+
+          				<tr class="flex flex-col flex-no wrap sm:table-row mb-2 sm:mb-0 bg-gray-100">
+
+                    <td class="border-grey-light border hover:bg-gray-100 p-3">
+                      <strong>PO: </strong>
+                      <br> <%= @vendor.po_number %>
+                    </td>
+
+                    <td class="border-grey-light border hover:bg-gray-100 p-3"><strong>Distributor: </strong>
+                      <br> <%= @vendor.distributed_by %></td>
+
+                    <td class="border-grey-light border hover:bg-gray-100 p-3">
+                      <strong>Recieved:</strong>
+                      <br><%= " #{@vendor.date_recieved.strftime("%m-%d-%y")}" %>
+                    </td>
+
+                    <td class="border-grey-light border hover:bg-gray-100 p-3">
+                        <strong>Delivered:</strong>
+                        <% if @vendor.date_delivered.present? != true %>
+                          <br>
+                          n/a
+                        <% else%>
+                        <%= " #{@vendor.date_delivered.strftime("%m-%d-%y")}" %>
+                        <% end %>
+                    </td>
+
+
+
+
+          					<td class=" text-center border-grey-light border hover:bg-gray-100 p-3 text-red-400 hover:text-red-600 hover:font-medium cursor-pointer">
+                      <%= link_to 'Delete', @vendor, method: :delete, data: { confirm: 'Are you sure? Once deleted you will never be able to recover this data.' }, class:"text-red-400 hover:text-red-600 hover:font-medium cursor-pointer" %>
+                    </td>
+
+          				</tr>
+
+  			</tbody>
+  		</table>
+
+  	</div>
+  </div>
+</div>
+
+</div>
+
+
+  <br>
+
+
+
+</div>
+
+
+
+
+</div>

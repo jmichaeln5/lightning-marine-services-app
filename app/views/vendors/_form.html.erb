@@ -1,3 +1,6 @@
+<div class="p-4  border-t-2 border-r-2 border-b-2 border-l-4 border-gray-200 text-center">
+  <div class="display-4" style="font-size:100%;">
+
 <%= form_with(model: vendor, local: true) do |form| %>
   <% if vendor.errors.any? %>
     <div id="error_explanation">
@@ -11,37 +14,56 @@
     </div>
   <% end %>
 
-  <div class="field">
+  <div class="field p-2">
     <%= form.label :name, "Vendor Name"%>
-    <%= form.text_field :name %>
+    <%= form.text_field :name, class:"bg-gray-200 form-control" %>
   </div>
 
-  <div class="field">
+  <div class="field p-2">
     <%= form.label :po_number, "PO Number" %>
-    <%= form.number_field :po_number %>
+    <%= form.number_field :po_number, class:"bg-gray-200 form-control" %>
   </div>
 
-  <div class="field">
+  <div class="p-2" style="">
+    <%= form.label :date_recieved %>
+    <%= form.date_field :date_recieved, as: :date, value: form.object.try(:strftime,"%m/%d/%Y"), class: 'form-control' %>
+  </div>
+
+  <!-- <div class="field">
     <%= form.label :date_recieved %>
     <%= form.datetime_select :date_recieved %>
-  </div>
+  </div> -->
 
-  <div class="field">
+  <div class="p-2" style="">
+    <%= form.label :date_delivered %>
+    <%= form.date_field :date_delivered, as: :date, value: form.object.try(:strftime,"%m/%d/%Y"), class: 'form-control' %>
+  </div>
+  <!-- <div class="field">
     <%= form.label :date_delivered %>
     <%= form.datetime_select :date_delivered %>
-  </div>
+  </div> -->
 
-  <div class="field">
+
+
+  <div class="field p-2">
     <%= form.label :distributed_by %>
-    <%= form.text_field :distributed_by %>
+    <%= form.text_field :distributed_by, class:"bg-gray-200 form-control" %>
   </div>
 
-  <div class="field">
-    <%= form.label :purchaser_id %>
-    <%= form.text_field :purchaser_id %>
-  </div>
+    <%= form.hidden_field :purchaser_id %>
 
-  <div class="actions">
+  <!-- <div class="actions btn btn-success">
     <%= form.submit %>
+  </div> -->
+  <br>
+  <div class="actions btn btn-success">
+  <%= button_tag(type: 'submit') do %>
+   Create Vendor
+  <% end %>
   </div>
+
 <% end %>
+
+
+</div>
+</div>

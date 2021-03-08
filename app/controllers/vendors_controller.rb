@@ -17,7 +17,6 @@ class VendorsController < ApplicationController
     @purchaser = Purchaser.find(params[:purchaser_id])
     @vendor = @purchaser.vendors.build
 
-
   end
 
   def edit
@@ -25,9 +24,15 @@ class VendorsController < ApplicationController
   end
 
   def create
-    # byebug
 
     @vendor = Vendor.new(vendor_params)
+
+    # byebug
+
+    if @vendor.date_recieved.present? == false
+      @vendor.date_recieved = DateTime.current.to_date
+    end
+
     respond_to do |format|
       if @vendor.save
         format.html { redirect_to vendors_path, notice: "Vendor was successfully created." }

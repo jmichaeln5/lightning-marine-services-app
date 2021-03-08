@@ -5,6 +5,8 @@ class PurchasersController < ApplicationController
   def index
     @purchasers = Purchaser.all.reverse
     # @purchasers = current_user.purchasers.all
+    @purchaser = current_user.purchasers.build
+
 
   end
 

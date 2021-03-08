@@ -1,33 +1,230 @@
+<style>
 
-<p>
-  <strong>Name:</strong>
-  <%= @purchaser.name %>
-</p>
+  @media (min-width: 640px) {
+    table {
+      display: inline-table !important;
+    }
 
-<p>
-  <strong>Po number:</strong>
-  <%= @purchaser.po_number %>
-</p>
+    thead tr:not(:first-child) {
+      display: none;
+    }
+  }
 
-<p>
-  <strong>Date recieved:</strong>
-  <%= @purchaser.date_recieved %>
-</p>
+  td:not(:last-child) {
+    border-bottom: 0;
+  }
 
-<p>
-  <strong>Date delivered:</strong>
-  <%= @purchaser.date_delivered %>
-</p>
+  th:not(:last-child) {
+    border-bottom: 2px solid rgba(0, 0, 0, .1);
+  }
+</style>
 
-<p>
-  <strong>Distributed by:</strong>
-  <%= @purchaser.distributed_by %>
-</p>
+<div class="display-4" style="font-size:100%;">
 
-<p>
-  <strong>User:</strong>
-  <%= @purchaser.user_id %>
-</p>
+  <div class="container">
+    <div class="text-center p-4  border-t-2 border-r-2 border-b-2 border-l-4 border-gray-200">
+      <div class="display-1" style="font-size:300%;">
 
-<%= link_to 'Edit', edit_purchaser_path(@purchaser) %> |
-<%= link_to 'Back', :back %>
+        <!-- Edit Icon (triggers Modal) -->
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square float-right" viewBox="0 0 16 16"  data-toggle="modal" data-target="#editPurchaserModal">
+          <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456l-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+          <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
+        </svg>
+
+
+        <!-- Modal -->
+        <div class="modal fade" id="editPurchaserModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Editing <%= @purchaser.name %></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+
+                <%= form_with(model: @purchaser) do |form| %>
+
+                  <% if @purchaser.errors.any? %>
+                    <div id="error_explanation">
+                      <h2><%= pluralize(@purchaser.errors.count, "error") %> prohibited this purchaser from being saved:</h2>
+
+                      <ul>
+                        <% @purchaser.errors.full_messages.each do |message| %>
+                          <li><%= message %></li>
+                        <% end %>
+                      </ul>
+                    </div>
+                  <% end %>
+
+                  <div class="field p-2">
+                    <%= form.label :name, "Editing Purchaser"%>
+                    <%= form.text_field :name, class:"bg-gray-200 form-control", placeholder:"#{@purchaser.name}" %>
+                  </div>
+
+                  <div class="actions btn btn-primary">
+                  <%= button_tag(type: 'submit') do %>
+                   Update Purchaser
+                  <% end %>
+                  </div>
+
+                  <br>
+
+                  <button type="button" class="btn btn-danger">
+                    <%= link_to 'Delete Purchaser', @purchaser, method: :delete, data: { confirm: 'Are you sure you would like to delete this Purchaser? Once Deleted, you will never be able to recover this data.' }, class:"text-white hover:text-red-700 " %>
+                  </button>
+
+
+
+                 <% end %>
+
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+
+          All <%= @purchaser.name %> Orders
+
+
+
+      </div>
+    </div>
+    <br>
+    <!-- <%= link_to 'Add Vendor', new_user_purchaser_path(current_user), class:"btn btn-success btn-block" %> -->
+    <%= link_to "Add Vendor for #{@purchaser.name}", new_purchaser_vendor_path(@purchaser), class:"btn btn-success btn-block" %>
+  </div>
+
+  <div class="container pt-4">
+  <div class="text-center p-4  border-t-2 border-r-2 border-b-2 border-l-4 border-gray-200">
+
+
+
+
+
+
+
+
+
+      <div class=" container rounded-t-2xl ">
+        <div class=" flex flex-col flex-no wrap w-full">
+          <br>
+
+          <div class="bg-teal-300 p-3 font-bold" >
+            <span style="font-size:100%;">
+              All <%= @purchaser.name %> Orders
+            </span>
+          </div>
+
+        </div>
+      </div>
+
+  <!-- component -->
+  <div class="flex items-center justify-center">
+
+  	<div class="container">
+      <table class="w-full flex flex-row flex-no-wrap sm:bg-white overflow-hidden sm:shadow-lg ">
+  			<tbody class="flex-1 sm:flex-none">
+
+
+
+          <% if @purchaser.vendors.count > 0 %>
+
+
+
+          <% @purchaser.vendors.each do |vendor| %>
+
+          				<tr class="flex flex-col flex-no wrap sm:table-row mb-2 sm:mb-0 bg-gray-100">
+
+                    <td class="border-grey-light border hover:bg-gray-100 p-3">
+
+                      <strong>Vendor:</strong>
+                       <%= link_to " #{vendor.name}", vendor %>
+                    </td>
+
+                    <td class="border-grey-light border hover:bg-gray-100 p-3">
+                      <strong>PO: </strong> <%= vendor.po_number %>
+                    </td>
+
+                    <td class="border-grey-light border hover:bg-gray-100 p-3"><strong>Distributor: </strong> <%= vendor.distributed_by %></td>
+
+                    <td class="border-grey-light border hover:bg-gray-100 p-3">
+                      <strong>Recieved:</strong><%= " #{vendor.date_recieved.strftime("%m-%d-%y")}" %>
+                    </td>
+
+                    <td class="border-grey-light border hover:bg-gray-100 p-3">
+                        <strong>Delivered:</strong>
+                        <% if vendor.date_delivered.present? != true %>
+                          n/a
+                        <% else%>
+                        <%= " #{vendor.date_delivered.strftime("%m-%d-%y")}" %>
+                        <% end %>
+                    </td>
+
+          					<td class=" text-center border-grey-light border">
+
+
+                      <!-- Edit  -->
+                      <!-- <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-pencil-square " viewBox="0 0 16 16" style="height:10%; width:10%;" >
+                        <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456l-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+                        <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
+                      </svg> -->
+
+                      <!-- Delete  -->
+                        <!-- <span class="hover:bg-gray-100 p-3 text-red-400 hover:text-red-600 hover:font-medium cursor-pointer">
+                          <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="trash-alt" class="svg-inline--fa fa-trash-alt fa-w-14" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" style="height:10%; width:10%;">
+                          <path fill="currentColor" d="M32 464a48 48 0 0 0 48 48h288a48 48 0 0 0 48-48V128H32zm272-256a16 16 0 0 1 32 0v224a16 16 0 0 1-32 0zm-96 0a16 16 0 0 1 32 0v224a16 16 0 0 1-32 0zm-96 0a16 16 0 0 1 32 0v224a16 16 0 0 1-32 0zM432 32H312l-9.4-18.7A24 24 0 0 0 281.1 0H166.8a23.72 23.72 0 0 0-21.4 13.3L136 32H16A16 16 0 0 0 0 48v32a16 16 0 0 0 16 16h416a16 16 0 0 0 16-16V48a16 16 0 0 0-16-16z"></path>
+                        </svg>
+                      </span> -->
+
+
+                      <%= link_to 'Delete', vendor, method: :delete, data: { confirm: 'Are you sure? Once deleted you will never be able to recover this data.' }, class:"text-red-400 hover:text-red-600 hover:font-medium cursor-pointer" %>
+
+                    </td>
+
+          				</tr>
+
+                  <% end %>
+
+            <% else %>
+
+            <tr class="flex flex-col flex-no wrap sm:table-row mb-2 sm:mb-0 bg-gray-100 ">
+              <h5 class="bg-red-200 p-4 text-center">No Vendors Available.</h5>
+            </tr>
+
+            <% end %>
+
+
+
+
+
+  			</tbody>
+  		</table>
+
+  	</div>
+  </div>
+</div>
+
+
+
+
+
+
+</div>
+
+
+  <br>
+
+
+
+</div>
+
+
+
+
+</div>

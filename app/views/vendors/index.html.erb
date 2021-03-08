@@ -1,67 +1,4 @@
-<div class="container">
-  <h1>Vendors</h1>
-  <br>
-</div>
-
-<div class="container">
-  <%#= link_to 'New Vendor', new_user_vendor_path(current_user), class:"btn btn-success btn-lg btn-block" %>
-</div>
-
-<br>
-
-<% @vendors.each do |vendor| %>
-
-<div class="flex items-center justify-center">
-	<div class="container">
-		<table class="w-full flex flex-row flex-no-wrap sm:bg-white rounded-lg overflow-hidden sm:shadow-lg my-1">
-			<thead class="text-white">
-				<tr class="bg-teal-400 flex flex-col flex-no wrap sm:table-row rounded-l-lg sm:rounded-none mb-2 sm:mb-0">
-					<th class="p-3 text-left">Name</th>
-          <th class="p-3 text-left">PO number</th>
-          <th class="p-3 text-left">Distributed By</th>
-          <th class="p-3 text-left">Date Recieved</th>
-          <th class="p-3 text-left">Date Delivered</th>
-					<th class="p-3 text-left" width="110px">Actions</th>
-				</tr>
-			</thead>
-			<tbody class="flex-1 sm:flex-none">
-
-
-				<tr class="flex flex-col flex-no wrap sm:table-row mb-2 sm:mb-0 bg-gray-100"">
-
-          <td class="border-grey-light border hover:bg-gray-100 p-3"><%= link_to "#{vendor.name}", vendor %></td>
-          <td class="border-grey-light border hover:bg-gray-100 p-3"><%= vendor.po_number %></td>
-          <td class="border-grey-light border hover:bg-gray-100 p-3"><%= vendor.distributed_by %></td>
-
-          <td class="border-grey-light border hover:bg-gray-100 p-3">
-            <%#= vendor.date_recieved %>
-            <%= "#{vendor.date_recieved.strftime("%m-%d-%y")}" %>
-
-          </td>
-
-          <td class="border-grey-light border hover:bg-gray-100 p-3">
-            <%= "#{vendor.date_delivered.strftime("%m-%d-%y")}" %>
-
-          </td>
-
-					<td class="border-grey-light border hover:bg-gray-100 p-3 text-red-400 hover:text-red-600 hover:font-medium cursor-pointer">
-            <%= link_to 'Delete', vendor, method: :delete, data: { confirm: 'Are you sure? Once deleted you will never be able to recover this data.' } %>
-          </td>
-
-				</tr>
-
-        <% end %>
-
-			</tbody>
-		</table>
-	</div>
-</div>
-
 <style>
-  html,
-  body {
-    height: 100%;
-  }
 
   @media (min-width: 640px) {
     table {
@@ -81,3 +18,133 @@
     border-bottom: 2px solid rgba(0, 0, 0, .1);
   }
 </style>
+
+<div class="display-4" style="font-size:100%;">
+
+
+  <div class="text-center p-4  border-t-2 border-r-2 border-b-2 border-l-4 border-gray-200">
+    <div class="display-1" style="font-size:300%;">All Vendors</div>
+  </div>
+
+  <br>
+  <%= link_to 'Add New Vendor', new_user_purchaser_path(current_user), class:"btn btn-success btn-block" %>
+
+<br>
+
+
+
+
+<% @vendors.each do |vendor| %>
+
+<!-- <div class="p-4 bg-gray-100"> -->
+<div class="p-4  border-t-2 border-r-2 border-b-2 border-l-4 border-gray-200">
+
+  <div class=" container rounded-t-2xl ">
+    <div class=" flex flex-col flex-no wrap w-full">
+      <br>
+
+      <!-- <div class="bg-teal-400 p-3"> Purchased by: <%= vendor.name %> </div> -->
+      <!-- <%= link_to "Purchased by #{vendor.name}", vendor, class:"bg-teal-400 p-3 btn"%> -->
+
+      <button type="button" name="button" class="bg-teal-300 p-3 btn" >
+        <div>
+          <%= link_to " #{vendor.name.capitalize}", vendor, class:"display-4",style:"width:100%; font-size:200%;" %>
+          <!-- <%= link_to "#{vendor.name.capitalize}", vendor %> -->
+
+        </div>
+      </button>
+
+    </div>
+  </div>
+
+  <!-- component -->
+  <div class="flex items-center justify-center">
+
+  	<div class="container -mt-4">
+      <!-- <table class="w-full flex flex-row flex-no-wrap sm:bg-white rounded-lg overflow-hidden sm:shadow-lg my-1"> -->
+      <table class="w-full flex flex-row flex-no-wrap sm:bg-white overflow-hidden sm:shadow-lg my-1">
+  			<tbody class="flex-1 sm:flex-none">
+
+
+
+          				<tr class="flex flex-col flex-no wrap sm:table-row mb-2 sm:mb-0 bg-gray-100">
+
+                    <td class="border-grey-light border hover:bg-gray-100 p-3">
+
+                      <strong>Purchased by:</strong>
+                       <%= link_to " #{vendor.purchaser.name}", vendor.purchaser %>
+                    </td>
+
+                    <td class="border-grey-light border hover:bg-gray-100 p-3">
+                      <strong>PO: </strong> <%= vendor.po_number %>
+                    </td>
+
+                    <td class="border-grey-light border hover:bg-gray-100 p-3"><strong>Distributor: </strong> <%= vendor.distributed_by %></td>
+
+                    <td class="border-grey-light border hover:bg-gray-100 p-3">
+                      <strong>Recieved:</strong>
+                      <%= " #{vendor.date_recieved.strftime("%m-%d-%y")}" %>
+                    </td>
+
+                    <td class="border-grey-light border hover:bg-gray-100 p-3">
+                        <strong>Delivered:</strong>
+                        <% if vendor.date_delivered.present? != true %>
+                          n/a
+                        <% else%>
+                        <%= " #{vendor.date_delivered.strftime("%m-%d-%y")}" %>
+                        <% end %>
+                    </td>
+
+          					<td class=" text-center border-grey-light border hover:bg-gray-100 p-3 text-red-400 hover:text-red-600 hover:font-medium cursor-pointer">
+                      <%= link_to 'Delete', vendor, method: :delete, data: { confirm: 'Are you sure? Once deleted you will never be able to recover this data.' } %>
+                    </td>
+
+          				</tr>
+
+
+
+  			</tbody>
+  		</table>
+
+      <br>
+      <br>
+      <div class="container text-center" style:"object-fit: contain;">
+
+        <%= link_to 'View Order', vendor_path(vendor), class:"btn btn-success " %>
+
+
+      </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  	</div>
+  </div>
+
+  <br>
+
+
+
+</div>
+
+<br>
+<br>
+
+
+
+<% end %>
+
+</div>
