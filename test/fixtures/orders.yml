@@ -1,0 +1,17 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  po_number: 1
+  date_recieved: 2021-03-08 15:39:31
+  date_delivered: 2021-03-08 15:39:31
+  distributed_by: MyString
+  vendor: one
+
+two:
+  name: MyString
+  po_number: 1
+  date_recieved: 2021-03-08 15:39:31
+  date_delivered: 2021-03-08 15:39:31
+  distributed_by: MyString
+  vendor: two

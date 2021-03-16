@@ -1,5 +1,11 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <a class="navbar-brand" href="/">Lightning Marine Services App</a>
+  <% if current_user.present? == false %>
+    <a class="navbar-brand" href="/">Lightning Marine Services App</a>
+  <% else %>
+    <a class="navbar-brand" href="<%= user_purchasers_path(current_user)%>">Lightning Marine Services App</a>
+
+  <% end %>
+
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
@@ -13,11 +19,11 @@
         <%= link_to "Purchasers", user_purchasers_path(current_user),class:"nav-link" if current_user %>
       </li>
       <li class="nav-item">
-        <%= link_to "Vendors", vendors_path ,class:"nav-link" if current_user %>
+        <%= link_to "Vendors", all_vendors_path ,class:"nav-link" if current_user %>
       </li>
-      <!-- <li class="nav-item">
-        <%= link_to "Landing Page", pages_landing_page_path,class:"nav-link"%>
-      </li> -->
+      <li class="nav-item">
+        <%= link_to "Orders", all_orders_path ,class:"nav-link" if current_user %>
+      </li>
     </ul>
 
     <div class="navbar-text">

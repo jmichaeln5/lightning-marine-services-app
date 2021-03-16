@@ -1,0 +1,9 @@
+
+<div class="display-1 bg-teal-300 text-center p-4 "style="font-size:200%;">
+  New Order for <%= @vendor.name %>
+</div>
+
+
+<%= render 'form', order: @order %>
+
+<%= link_to 'Back', orders_path %>

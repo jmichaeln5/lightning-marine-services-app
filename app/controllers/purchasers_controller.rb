@@ -1,18 +1,25 @@
 class PurchasersController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_purchaser, only: %i[ show edit update destroy ]
+  before_action :purchasers_page
+
+  # GET /purchaser_orders
+  def purchasers_orders
+    purchaser = Purchaser.find(params[:id])
+  end
 
   # GET /purchasers or /purchasers.json
   def index
     @purchasers = Purchaser.all.reverse
     # @purchasers = current_user.purchasers.all
     @purchaser = current_user.purchasers.build
-
-
+    @new_order = Order.new
   end
 
   # GET /purchasers/1 or /purchasers/1.json
   def show
     @purchaser = Purchaser.find(params[:id])
+    @vendors = @purchaser.vendors.all
   end
 
   # GET /purchasers/new
@@ -31,8 +38,8 @@ class PurchasersController < ApplicationController
 
     respond_to do |format|
       if @purchaser.save
-        format.html { redirect_to @purchaser, notice: "Purchaser was successfully created." }
-        format.json { render :show, status: :created, location: @purchaser }
+        format.html { redirect_to purchasers_path, notice: "Purchaser was successfully created." }
+        format.json { render :show, status: :created, location: purchasers_path }
       else
         format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @purchaser.errors, status: :unprocessable_entity }
@@ -64,6 +71,11 @@ class PurchasersController < ApplicationController
 
   private
     # Use callbacks to share common setup or constraints between actions.
+
+    def purchasers_page
+      @purchasers_page = true
+    end
+
     def set_purchaser
       @purchaser = Purchaser.find(params[:id])
     end

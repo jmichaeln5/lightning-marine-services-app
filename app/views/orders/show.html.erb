@@ -1,0 +1,33 @@
+
+<p>
+  <strong>Name:</strong>
+  <%#= @order.description %>
+</p>
+
+<p>
+  <strong>Po number:</strong>
+  <%= @order.po_number %>
+</p>
+
+<p>
+  <strong>Date recieved:</strong>
+  <%= @order.date_recieved %>
+</p>
+
+<p>
+  <strong>Date delivered:</strong>
+  <%= @order.date_delivered %>
+</p>
+
+<p>
+  <strong>Distributed by:</strong>
+  <%= @order.distributed_by %>
+</p>
+
+<p>
+  <strong>Vendor:</strong>
+  <%= @order.vendor_id %>
+</p>
+
+<%= link_to 'Edit', edit_order_path(@order) %> |
+<%= link_to 'Back', orders_path %>

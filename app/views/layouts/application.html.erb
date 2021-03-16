@@ -27,8 +27,9 @@
     <%= render "layouts/nav"%>
     <div class="container bg-white pb-40" style="height:100%;">
       <br>
-      <span class="notice"><%= notice %></span>
-      <span class="alert"><%= alert %></span>
+      <span class="notice" id="notice"><%= notice %></span>
+      <span class="alert" id="alert"><%= alert %></span>
+      <!-- test -->
       <%= yield %>
     <%end %>
 
